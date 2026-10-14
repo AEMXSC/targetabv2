@@ -31,7 +31,9 @@
 
   /* nav heights */
   --breadcrumbs-height: 34px;
-  --header-height: var(--nav-height);
+
+  /* reserve the full header (utility bar + main row) before header.css loads, to avoid CLS */
+  --header-height: 162px;
 }
 
 /* fallback fonts */
@@ -49,6 +51,8 @@
 
 @media (width >= 900px) {
   :root {
+    --header-height: 130px;
+
     /* heading sizes (desktop) */
     --heading-font-size-xxl: var(--heading-size-xxl);
   }

@@ -1,20 +1,182 @@
-footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+/* stylelint-disable no-descending-specificity -- scoped link rules refine the footer-wide link reset */
+
+footer .footer {
+  font-family: var(--body-font-family);
+  color: var(--text-color);
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
-}
-
-footer .footer p {
+footer .footer p,
+footer .footer h2,
+footer .footer h3 {
   margin: 0;
 }
 
+footer .footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer .footer a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
+/* email signup strip */
+footer .footer-signup {
+  padding: 32px 16px 24px;
+  background-color: var(--background-color);
+  text-align: center;
+}
+
+footer .footer-signup-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+footer .footer .footer-signup-title {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+footer .footer-signup-cta a.footer-signup-button:any-link {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  border-radius: 999px;
+  padding: 0 24px;
+  background-color: var(--brand-red);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+footer .footer-signup-cta a.footer-signup-button:hover {
+  background-color: #a00;
+  text-decoration: none;
+}
+
+footer .footer-signup-legal {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+}
+
+footer .footer-signup-legal a:any-link {
+  color: #666;
+  text-decoration: underline;
+}
+
+footer .footer .footer-disclaimer {
+  margin-top: 40px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #666;
+}
+
+footer .footer-disclaimer a:any-link {
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+/* link columns + bottom bar */
+footer .footer-links {
+  padding: 24px 16px 32px;
+  background-color: #f7f7f7;
+}
+
+footer .footer-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 16px;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+footer .footer .footer-column-title {
+  margin-bottom: 16px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+footer .footer-column li + li {
+  margin-top: 12px;
+}
+
+footer .footer-column a:any-link {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+footer .footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  max-width: var(--content-max-width);
+  margin: 32px auto 0;
+  border-top: 1px solid #d6d6d6;
+  padding-top: 24px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+footer .footer-logo img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+footer .footer-social {
+  display: flex;
+  gap: 16px;
+}
+
+footer .footer-social img {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+footer .footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+footer .footer-copyright {
+  color: #666;
+}
+
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer-signup-row {
+    flex-wrap: nowrap;
+    gap: 24px;
+  }
+
+  footer .footer .footer-signup-title {
+    width: auto;
+  }
+
+  footer .footer-links {
+    padding: 24px 24px 32px;
+  }
+
+  footer .footer-columns {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  footer .footer-copyright {
+    margin-left: auto;
   }
 }

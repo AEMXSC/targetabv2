@@ -1,0 +1,212 @@
+{
+  "templates": [
+    {
+      "name": "home",
+      "urls": [
+        "https://www.target.com/"
+      ],
+      "representativeUrl": "https://www.target.com/",
+      "description": "Target homepage: promo banners, tabbed product carousels, deal and story card grids, category shortcuts",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(1) [class*=\"storycardWrapper\"]"
+          ]
+        },
+        {
+          "name": "tabs-product",
+          "instances": [
+            "[class*=\"styles_CarouselContainer\"] > div:has([class*=\"styles_tabBar\"])"
+          ]
+        },
+        {
+          "name": "cards-deals",
+          "instances": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(5) [class*=\"contentPoolContainer\"]"
+          ]
+        },
+        {
+          "name": "hero-promo",
+          "instances": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(8) [class*=\"contentPoolContainer\"]",
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(19) [class*=\"contentPoolContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-circle",
+          "instances": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(9) ul",
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(17) ul"
+          ]
+        },
+        {
+          "name": "cards-story",
+          "instances": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(12) [class*=\"contentPoolContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(15) > div"
+          ]
+        }
+      ],
+      "urlPattern": "/",
+      "sections": [
+        {
+          "id": "1",
+          "name": "Top promotional banner",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(1)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "2",
+          "name": "Toy deals tabs",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(2)"
+          ],
+          "style": "cream",
+          "blocks": [
+            "tabs-product"
+          ],
+          "defaultContent": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(2) [class*=\"styles_HeadlineContainer\"]"
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Weekly deals grid",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(4)"
+          ],
+          "style": "beige",
+          "blocks": [
+            "cards-deals"
+          ],
+          "defaultContent": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(4) [class*=\"storycardWrapper\"]"
+          ]
+        },
+        {
+          "id": "4",
+          "name": "BOGO deals tabs",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(6)"
+          ],
+          "style": "beige",
+          "blocks": [
+            "tabs-product"
+          ],
+          "defaultContent": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(6) [class*=\"styles_HeadlineContainer\"]"
+          ]
+        },
+        {
+          "id": "5",
+          "name": "Halloween banner and shortcuts",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(8)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-promo",
+            "cards-circle"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "6",
+          "name": "Halloween tabs",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(10)"
+          ],
+          "style": "dark",
+          "blocks": [
+            "tabs-product"
+          ],
+          "defaultContent": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(10) [class*=\"styles_HeadlineContainer\"]"
+          ]
+        },
+        {
+          "id": "7",
+          "name": "What is new for fall stories",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(11)"
+          ],
+          "style": "beige",
+          "blocks": [
+            "cards-story"
+          ],
+          "defaultContent": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(11) [class*=\"storycardWrapper\"]"
+          ]
+        },
+        {
+          "id": "8",
+          "name": "Seasonal celebrations",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(14)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-promo"
+          ],
+          "defaultContent": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(14) [class*=\"bannerWrapper\"]"
+          ]
+        },
+        {
+          "id": "9",
+          "name": "Seasonal collections tabs",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(16)"
+          ],
+          "style": "cream",
+          "blocks": [
+            "tabs-product"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "10",
+          "name": "Featured categories",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(17)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-circle"
+          ],
+          "defaultContent": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(17) h2",
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(17) a[href*=\"shop-all-categories\"]"
+          ]
+        },
+        {
+          "id": "11",
+          "name": "SMS signup promo",
+          "selector": [
+            "#pageBodyContainer > div > div:nth-of-type(2) > div:nth-of-type(19)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-promo"
+          ],
+          "defaultContent": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "projectType": "da"
+  }
+}

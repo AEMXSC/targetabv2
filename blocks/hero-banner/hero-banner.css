@@ -1,79 +1,220 @@
-/* hero-banner — full-bleed photographic banner with knockout text + yellow CTA */
-.hero-banner-container .hero-banner-wrapper {
-  max-width: unset;
-  padding: 0;
-}
-
+/*
+ * hero-banner — Target storycard banner.
+ * Mobile: the portrait artwork (toy row / cream band / toy row) with the copy laid over
+ * the cream band. Tablet+: 1200 x 480 banner, cream copy panel centered between two
+ * 2x2 product-tile panels cut from the same image (tiles built in hero-banner.js).
+ * All sizes are expressed in "artwork pixels" (--hb-u) so the banner scales as one unit
+ * like the source's resizeText storycards: 668 = mobile artwork width, 1200 = desktop
+ * banner width.
+ */
 .hero-banner {
+  --hb-u: calc(100cqw / 668);
+
+  container-type: inline-size;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 536px;
-  padding: 48px 24px;
+  display: grid;
   overflow: hidden;
-  color: var(--background-color);
+  background-color: var(--cream-color);
 }
 
-/* background photo */
-.hero-banner picture {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
+.hero-banner > * {
+  grid-area: 1 / 1;
+  min-width: 0;
 }
 
-.hero-banner picture img {
+.hero-banner .hero-banner-media {
+  line-height: 0;
+}
+
+.hero-banner .hero-banner-media picture,
+.hero-banner .hero-banner-media img {
+  display: block;
   width: 100%;
-  height: 100%;
+}
+
+.hero-banner .hero-banner-media img {
+  height: auto;
+  aspect-ratio: 668 / 858;
   object-fit: cover;
 }
 
-/* dark scrim so knockout text stays legible */
-.hero-banner::after {
-  content: "";
+.hero-banner .hero-banner-tiles {
+  display: none;
+}
+
+/* copy sits on the artwork's cream band (rows 267–594 of the 858px-tall image) */
+.hero-banner .hero-banner-content {
+  box-sizing: border-box;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(327 * var(--hb-u));
+  margin-top: calc(267 * var(--hb-u));
+  padding: 0 calc(40 * var(--hb-u));
+  font-family: var(--body-font-family);
+  text-align: center;
+  color: var(--text-color);
+}
+
+.hero-banner .hero-banner-content > * {
+  margin: 0;
+}
+
+.hero-banner .hero-banner-content .hero-banner-eyebrow {
+  margin-bottom: calc(10 * var(--hb-u));
+  font-size: calc(44 * var(--hb-u));
+  font-weight: 700;
+  line-height: 1;
+  color: var(--brand-red);
+}
+
+.hero-banner .hero-banner-content .hero-banner-title {
+  font-family: var(--heading-font-family);
+  font-size: calc(96 * var(--hb-u));
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap; /* source big headline is resized to stay on one line */
+  color: var(--brand-red);
+}
+
+.hero-banner .hero-banner-title .hero-banner-currency {
+  font-size: 0.5em;
+  line-height: 1;
+  vertical-align: top;
+}
+
+.hero-banner .hero-banner-content > p:not(.hero-banner-eyebrow, .hero-banner-cta) {
+  font-size: calc(36 * var(--hb-u));
+  font-weight: 400;
+  line-height: 1.04;
+  color: var(--text-color);
+}
+
+.hero-banner .hero-banner-content .hero-banner-cta {
+  display: block;
+  margin-top: calc(12 * var(--hb-u));
+}
+
+/* red pill CTA (global styles reset default-content buttons to plain links) */
+main .hero-banner a.button:any-link {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  border-radius: 999px;
+  padding: calc(15 * var(--hb-u)) calc(18 * var(--hb-u));
+  font-size: calc(30 * var(--hb-u));
+  font-weight: 400;
+  line-height: calc(36 * var(--hb-u));
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: #a00;
+  color: var(--background-color);
+}
+
+main .hero-banner a.button:hover,
+main .hero-banner a.button:focus {
+  background-color: #a00;
+  text-decoration: underline;
+}
+
+/* the whole banner is one link, like the source storycard */
+.hero-banner .hero-banner-link::after {
+  content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background: linear-gradient(90deg, rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 35%) 55%, rgb(0 0 0 / 10%) 100%);
 }
 
-.hero-banner > div {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.hero-banner h1,
-.hero-banner h2 {
-  margin: 0 0 0.25em;
-  max-width: 640px;
-  color: var(--background-color);
-  font-family: var(--heading-font-family);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--heading-font-size-xxl);
-  line-height: 1.1;
-}
-
-.hero-banner p {
-  max-width: 520px;
-  margin: 0 0 1.5em;
-  font-size: 1.25rem;
-  line-height: 1.4;
-}
-
-.hero-banner a.button:any-link,
-.hero-banner p strong {
-  display: inline-block;
-  background-color: var(--brand-yellow);
-  color: var(--text-strong-color);
-  font-weight: var(--font-weight-semibold);
-  padding: 0.625em 1.5em;
-  border-radius: var(--border-radius);
-}
-
-@media (width >= 900px) {
+@media (width >= 600px) {
   .hero-banner {
-    height: 536px;
-    padding: 64px 32px;
+    --hb-u: calc(100cqw / 1200);
+
+    max-width: 1200px;
+    margin: 0 auto;
+    grid-template-columns: 412fr 396fr 392fr;
+    grid-template-rows: minmax(0, 1fr);
+    aspect-ratio: 1200 / 480;
+  }
+
+  /* landscape artwork (no tile grid): plain background image behind the copy */
+  .hero-banner > .hero-banner-media {
+    grid-area: 1 / 1 / -1 / -1;
+  }
+
+  .hero-banner .hero-banner-media img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .hero-banner > .hero-banner-content {
+    grid-area: 1 / 2;
+    align-self: stretch;
+    height: auto;
+    margin: 0;
+    padding: calc(46 * var(--hb-u)) calc(36.8 * var(--hb-u)) calc(24 * var(--hb-u));
+  }
+
+  .hero-banner .hero-banner-content .hero-banner-eyebrow {
+    margin-bottom: calc(9 * var(--hb-u));
+    font-size: calc(38 * var(--hb-u));
+  }
+
+  .hero-banner .hero-banner-content .hero-banner-title {
+    font-size: calc(76 * var(--hb-u));
+  }
+
+  .hero-banner .hero-banner-content > p:not(.hero-banner-eyebrow, .hero-banner-cta) {
+    font-size: calc(27 * var(--hb-u));
+  }
+
+  .hero-banner .hero-banner-content .hero-banner-cta {
+    margin-top: calc(9 * var(--hb-u));
+  }
+
+  main .hero-banner a.button:any-link {
+    padding: calc(10 * var(--hb-u)) calc(12 * var(--hb-u));
+    font-size: calc(20 * var(--hb-u));
+    line-height: calc(24 * var(--hb-u));
+  }
+
+  /* collage: side panels of 2x2 tiles cut from the artwork, cream panel in between */
+  .hero-banner.hero-banner-collage > .hero-banner-media {
+    display: none;
+  }
+
+  .hero-banner.hero-banner-collage .hero-banner-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .hero-banner .hero-banner-tiles-start {
+    grid-area: 1 / 1;
+  }
+
+  .hero-banner .hero-banner-tiles-end {
+    grid-area: 1 / 3;
+  }
+
+  /* 300% width = one artwork column per tile; rows pinned to the top/bottom edge.
+     51cqw floor keeps the artwork tall enough that a tile row always fills half the
+     banner height, so the narrower right-hand tiles never show the cream band */
+  .hero-banner .hero-banner-tile {
+    background-image: var(--hero-banner-image);
+    background-repeat: no-repeat;
+    background-size: max(300%, 51cqw) auto;
+  }
+
+  .hero-banner .hero-banner-tile-c0.hero-banner-tile-top { background-position: 0 0; }
+  .hero-banner .hero-banner-tile-c1.hero-banner-tile-top { background-position: 50% 0; }
+  .hero-banner .hero-banner-tile-c2.hero-banner-tile-top { background-position: 100% 0; }
+  .hero-banner .hero-banner-tile-c0.hero-banner-tile-bottom { background-position: 0 100%; }
+  .hero-banner .hero-banner-tile-c1.hero-banner-tile-bottom { background-position: 50% 100%; }
+  .hero-banner .hero-banner-tile-c2.hero-banner-tile-bottom { background-position: 100% 100%; }
+
+  /* centre panel shows the artwork's cream band (its soft gradient included) */
+  .hero-banner.hero-banner-collage > .hero-banner-content {
+    background: var(--hero-banner-image) 50% 50% / 300% auto no-repeat;
   }
 }

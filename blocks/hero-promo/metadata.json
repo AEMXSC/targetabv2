@@ -1,0 +1,20 @@
+{
+  "variantName": "hero-promo",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "mixed (dark center panel / light)",
+    "density": "spacious",
+    "purpose": "promo-banner",
+    "imagePattern": "large",
+    "structure": "background image + title + subheading"
+  },
+  "contentPattern": "row1: background image | row2: h2 heading, p subtext, link (whole banner clickable). Mid-page wide linked banner, rounded corners, text overlay centered (5.1) or left (11.1).",
+  "options": [{ "class": "left", "label": "Left aligned" }],
+  "memberVariantIds": [],
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-08T00:00:00.000Z"
+  }
+}

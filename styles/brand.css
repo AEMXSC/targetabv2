@@ -1,0 +1,26 @@
+/*
+ * Brand tokens extracted from https://www.target.com/ (see migration-work/brand.json).
+ * Target's "Helvetica for Target" is self-hosted and not publicly licensed, so the
+ * closest system Helvetica stack is used instead.
+ */
+:root {
+  --heading-font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  --body-font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  --background-color: #fff;
+  --text-color: #333;
+  --link-color: #333;
+  --link-hover-color: #333;
+  --brand-red: #c00;
+  --cream-color: #faf0e6;
+  --beige-color: #f1e0cb;
+  --dark-color: #1c1c1c;
+  --section-padding: 24px;
+  --content-max-width: 1400px;
+  --nav-height: 64px;
+  --heading-size-xxl: 37px;
+  --heading-size-xl: 29px;
+  --heading-size-l: 23px;
+  --heading-size-m: 20px;
+  --heading-size-s: 18px;
+  --heading-size-xs: 16px;
+}

@@ -1,0 +1,157 @@
+/*
+ * hero-promo — mid-page linked promo banner (Target "standard" content pool).
+ * Values extracted from https://www.target.com/ computed styles
+ * (see migration-work/hero-promo-extracted.css).
+ *
+ * Mobile (< 768px): image on top, copy panel below (stacked).
+ * Desktop (>= 768px): 4:1 banner, copy overlaid on the image.
+ *
+ * Options:
+ *   left  — copy aligned to the start edge (default: centered)
+ *   dark  — light (#fff) copy for dark imagery
+ *   light — dark (#333) copy for light imagery (default)
+ * With neither dark nor light, hero-promo.js samples the image and picks one.
+ */
+
+.hero-promo {
+  --hero-promo-text: var(--text-color);
+  --hero-promo-panel: #f7f6f0;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--hero-promo-panel);
+  background-clip: padding-box;
+  color: var(--hero-promo-text);
+  font-family: var(--body-font-family);
+}
+
+/* light theme: subtle 1px ring (source "showBorder") */
+.hero-promo:not(.dark) {
+  box-shadow: rgb(0 0 0 / 20%) 0 0 0 1px;
+}
+
+.hero-promo.dark {
+  --hero-promo-text: #fff;
+  --hero-promo-panel: rgb(51 44 38);
+}
+
+/* media */
+.hero-promo .hero-promo-media {
+  line-height: 0;
+}
+
+.hero-promo .hero-promo-media picture,
+.hero-promo .hero-promo-media img {
+  display: block;
+  width: 100%;
+}
+
+.hero-promo .hero-promo-media img {
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+/* copy */
+.hero-promo .hero-promo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  text-align: start;
+  color: inherit;
+}
+
+.hero-promo .hero-promo-content h2 {
+  margin: 0 0 8px;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 27px;
+  color: inherit;
+}
+
+.hero-promo .hero-promo-content p {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.hero-promo .hero-promo-content a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* whole-banner link (stretched link) */
+.hero-promo.hero-promo-linked .hero-promo-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.hero-promo.hero-promo-linked .hero-promo-link:focus-visible {
+  outline: none;
+}
+
+.hero-promo.hero-promo-linked .hero-promo-link:focus-visible::after {
+  outline: 2px solid currentcolor;
+  outline-offset: -4px;
+  border-radius: 12px;
+}
+
+@media (width >= 768px) {
+  .hero-promo {
+    display: block;
+    aspect-ratio: 4 / 1;
+  }
+
+  .hero-promo .hero-promo-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-promo .hero-promo-media picture,
+  .hero-promo .hero-promo-media img {
+    height: 100%;
+  }
+
+  .hero-promo .hero-promo-media img {
+    object-fit: cover;
+    object-position: left center;
+    border-radius: 0;
+  }
+
+  .hero-promo .hero-promo-content {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    grid-auto-columns: calc(35% - 44px);
+    place-content: center;
+    align-items: initial;
+    padding: clamp(16px, 1vw + 16px, 27px) clamp(16px, 1.5vw + 16px, 34px) 16px;
+    text-align: center;
+  }
+
+  .hero-promo .hero-promo-content h2 {
+    font-size: clamp(16px, 3.2vw - 2px, 38px);
+    line-height: 1.05;
+  }
+
+  .hero-promo .hero-promo-content p {
+    margin: 0;
+    font-size: clamp(13px, 1.6vw - 1px, 20px);
+  }
+
+  /* option: left — copy aligned to the start edge */
+  .hero-promo.left .hero-promo-content {
+    place-content: center start;
+    text-align: start;
+  }
+}

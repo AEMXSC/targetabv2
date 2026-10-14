@@ -1,0 +1,22 @@
+{
+  "status": "success",
+  "url": "https://www.target.com/",
+  "path": "index",
+  "timestamp": "2026-10-09T15:29:37.625Z",
+  "title": "Target : Expect More. Pay Less.",
+  "template": "home",
+  "blocks": [
+    "hero-banner",
+    "tabs-product",
+    "tabs-product",
+    "tabs-product",
+    "tabs-product",
+    "cards-deals",
+    "hero-promo",
+    "hero-promo",
+    "cards-circle",
+    "cards-circle",
+    "cards-story",
+    "cards-promo"
+  ]
+}

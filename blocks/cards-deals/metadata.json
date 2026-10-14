@@ -1,0 +1,20 @@
+{
+  "variantName": "cards-deals",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light cards on beige",
+    "density": "compact",
+    "purpose": "deal-offers",
+    "imagePattern": "product-cutout",
+    "structure": "per card: product image + eyebrow + offer + label + fine print"
+  },
+  "contentPattern": "one row per deal: [product image | eyebrow p, h3 offer (e.g. '30% off'), p label, optional p fine print, whole card link]. 4-col grid (2-col mobile), offer text above image.",
+  "options": [],
+  "memberVariantIds": [],
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-08T00:00:00.000Z"
+  }
+}

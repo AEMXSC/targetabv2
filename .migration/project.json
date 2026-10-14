@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "targetabv2": {
+      "previewOrg": "aemxsc",
+      "previewSite": "targetabv2",
+      "contentHostUrl": "https://content.da.live/aemxsc/targetabv2/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

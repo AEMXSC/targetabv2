@@ -1,0 +1,20 @@
+{
+  "variantName": "cards-circle",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "category-nav",
+    "imagePattern": "circular-thumbnail",
+    "structure": "per card: circular image + linked label"
+  },
+  "contentPattern": "one row per category: [circular image | linked label]. 6 per row on desktop (3 mobile, 4 tablet), circular crops, small centered label.",
+  "options": [],
+  "memberVariantIds": [],
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-08T00:00:00.000Z"
+  }
+}

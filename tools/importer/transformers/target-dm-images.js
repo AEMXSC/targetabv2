@@ -5,8 +5,11 @@
  * Transformer: Target (www.target.com) Dynamic Media / Scene7 images.
  *
  * Target serves images from Scene7 IS/Image (https://target.scene7.com/is/image/Target/...).
- * Rewrites DM <img> tags into anchors so the URL survives the markdown round-trip;
- * the client-side auto-block in scripts/scripts.js rebuilds <picture> elements.
+ * Keeps DM images as real <img> elements so authors see them in Document Authoring;
+ * on preview EDS ingests them into its media store and serves optimized pictures.
+ * The scraped src is often a small rendition (wid=315/600/668, sometimes boxed by
+ * hei), so the URL is normalized to request up to 2000px without upscaling or
+ * padding: wid=2000, hei removed, fit=constrain.
  *
  * Runs in afterTransform ONLY - block parsers run between hooks and need <img>.
  * Spec: excat-import-infrastructure/references/dm-scene7-transformer.md
@@ -39,83 +42,31 @@ function detectDynamicMediaUrl(urlStr) {
   return false;
 }
 
-const LINKED_DM_INLINE_WRAPPER_TAGS = new Set(['PICTURE']);
-// Element children allowed alongside the DM img inside an inline wrapper.
-// Currently only <source> — the standard responsive-picture sibling that
-// `<picture>` accepts. Anything else means the wrapper carries unrelated
-// content and we should not treat it as transparent.
-const LINKED_DM_WRAPPER_SIBLING_TAGS = new Set(['SOURCE']);
-
-function findLinkedDmCarrier(img) {
-  if (!img || !img.parentElement) return null;
-
-  // Walk up through allow-listed inline wrappers, tracking the topmost
-  // wrapped node. Each wrapper must contain `node` and may contain only
-  // allow-listed siblings (e.g. `<source>` for `<picture>`). The anchor
-  // we end up at must then have that wrapper (or the bare img) as its
-  // sole element child with no other meaningful text.
-  let node = img;
-  let parent = img.parentElement;
-  while (parent && LINKED_DM_INLINE_WRAPPER_TAGS.has(parent.tagName)) {
-    let foundNode = false;
-    for (const child of parent.children) {
-      if (child === node) {
-        foundNode = true;
-      } else if (!LINKED_DM_WRAPPER_SIBLING_TAGS.has(child.tagName)) {
-        return null;
-      }
-    }
-    if (!foundNode) return null;
-    node = parent;
-    parent = parent.parentElement;
-  }
-
-  if (!parent || parent.tagName !== 'A') return null;
-  if (parent.children.length !== 1 || parent.children[0] !== node) return null;
-  if (parent.textContent.trim() !== '') return null;
-
-  return parent;
-}
-
-const EMPTY_ALT_SENTINEL = 'Image without alt text';
-
-function altToLinkText(alt) {
-  return alt || EMPTY_ALT_SENTINEL;
-}
 // ---- End canonical helpers ----
 
+// Request a large, unpadded rendition: wid=2000, no hei box, fit=constrain.
+// Query string is edited verbatim so Scene7 `$` template params stay intact.
+function toIngestRendition(src) {
+  const normalized = src.startsWith('//') ? `https:${src}` : src;
+  const qIdx = normalized.indexOf('?');
+  const base = qIdx >= 0 ? normalized.slice(0, qIdx) : normalized;
+  const query = qIdx >= 0 ? normalized.slice(qIdx + 1) : '';
+  const pairs = query.split('&').filter((p) => p && !['wid', 'hei', 'fit'].includes(p.split('=')[0]));
+  pairs.push('wid=2000', 'fit=constrain');
+  return `${base}?${pairs.join('&')}`;
+}
+
+// eslint-disable-next-line no-unused-vars
 export default function transform(hookName, element, payload) {
   if (hookName !== 'afterTransform') return;
-  const doc = element.ownerDocument;
 
   element.querySelectorAll('img').forEach((img) => {
     const src = img.getAttribute('src') || '';
-    if (!detectDynamicMediaUrl(src)) return;
-
-    // Preserve alt verbatim; empty alt becomes the sentinel link text.
-    const alt = img.getAttribute('alt') || '';
-
-    // Linked image (incl. parser-wrapped `<a><picture><img></picture></a>`):
-    // stash DM URL in title, keep the navigation href.
-    const linkedAnchor = findLinkedDmCarrier(img);
-    if (linkedAnchor) {
-      linkedAnchor.setAttribute('title', src);
-      linkedAnchor.textContent = altToLinkText(alt);
-      return;
-    }
-
-    // Mixed-content anchor: no clean single-anchor markdown form; skip.
-    const parent = img.parentElement;
-    if (parent && parent.tagName === 'A') {
-      // eslint-disable-next-line no-console
-      console.warn('DM image inside mixed-content anchor, skipped:', src);
-      return;
-    }
-
-    // Unlinked image: anchor whose href is the DM URL.
-    const a = doc.createElement('a');
-    a.href = src;
-    a.textContent = altToLinkText(alt);
-    img.replaceWith(a);
+    const type = detectDynamicMediaUrl(src);
+    if (!type) return;
+    if (type === 'scene7') img.setAttribute('src', toIngestRendition(src));
+    // drop responsive siblings that still point at the small scraped renditions
+    const picture = img.closest('picture');
+    if (picture) picture.querySelectorAll('source').forEach((s) => s.remove());
   });
 }

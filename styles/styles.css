@@ -287,8 +287,10 @@ main > .section > .default-content-wrapper p {
   font-size: var(--body-font-size-s);
 }
 
-/* a lone image directly before a section title is that title's background (Target storycard headers) */
-main > .section > .default-content-wrapper:has(> :first-child:is(picture, p:has(> picture:only-child)) + :is(h1, h2)) {
+/* a lone image directly before a section title is that title's background (Target storycard headers);
+   :has() cannot nest, so the <p>-wrapped image (DA/EDS markup) gets its own selector */
+main > .section > .default-content-wrapper:has(> picture:first-child + :is(h1, h2)),
+main > .section > .default-content-wrapper:has(> p:first-child > picture:only-child):has(> p:first-child + :is(h1, h2)) {
   position: relative;
   overflow: hidden;
 }

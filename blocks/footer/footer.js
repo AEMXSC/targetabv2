@@ -1,10 +1,11 @@
 /**
- * Fetches the footer fragment: /content first (local preview), then the site root (DA/EDS).
+ * Fetches the footer fragment from the site root; only the local dev server falls back
+ * to /content, where it serves imported content.
  * @returns {Promise<{ html: string, base: string }|null>}
  */
 async function fetchFooterFragment() {
-  let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+  let resp = await fetch('/footer.plain.html');
+  if (!resp.ok && window.location.hostname === 'localhost') resp = await fetch('/content/footer.plain.html');
   if (!resp.ok) return null;
   return { html: await resp.text(), base: resp.url };
 }

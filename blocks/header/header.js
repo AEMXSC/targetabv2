@@ -4,12 +4,13 @@ const isDesktop = window.matchMedia('(width >= 900px)');
 const SEARCH_ACTION = 'https://www.target.com/s';
 
 /**
- * Fetches the nav fragment: /content first (local preview), then the site root (DA/EDS).
+ * Fetches the nav fragment from the site root; only the local dev server falls back
+ * to /content, where it serves imported content.
  * @returns {Promise<{ html: string, base: string }|null>}
  */
 async function fetchNavFragment() {
-  let resp = await fetch('/content/nav.plain.html');
-  if (!resp.ok) resp = await fetch('/nav.plain.html');
+  let resp = await fetch('/nav.plain.html');
+  if (!resp.ok && window.location.hostname === 'localhost') resp = await fetch('/content/nav.plain.html');
   if (!resp.ok) return null;
   return { html: await resp.text(), base: resp.url };
 }

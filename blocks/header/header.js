@@ -65,7 +65,9 @@ function closeAll(nav, closeDrawer = false) {
  * @param {number} index
  */
 function buildDrop(item, nav, base, index) {
-  const link = item.querySelector(':scope > a');
+  // DA wraps a list item's leading link in a <p>; local plain HTML does not
+  const link = item.querySelector(':scope > a, :scope > p > a');
+  const linkHolder = link && link.parentElement !== item ? link.parentElement : link;
   const label = link ? link.textContent.trim() : '';
   const panelId = `nav-panel-${index}`;
 
@@ -101,7 +103,7 @@ function buildDrop(item, nav, base, index) {
 
   const body = document.createElement('div');
   body.className = 'nav-panel-body';
-  [...item.children].filter((c) => c !== link).forEach((c) => {
+  [...item.children].filter((c) => c !== linkHolder).forEach((c) => {
     if (c.tagName === 'P') c.className = 'nav-panel-subhead';
     if (c.tagName === 'UL') c.className = 'nav-panel-list';
     body.append(c);

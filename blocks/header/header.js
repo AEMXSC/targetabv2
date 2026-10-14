@@ -30,6 +30,22 @@ function parseSections({ html, base }) {
   return [...wrapper.children].filter((el) => el.tagName === 'DIV');
 }
 
+/**
+ * DA splits `<a><img>Label</a>` into an icon-only link plus a sibling paragraph,
+ * leaving the link without an accessible name. Moves that label back into the link.
+ * @param {HTMLUListElement} list
+ */
+function mergeIconLinkLabels(list) {
+  list.querySelectorAll(':scope > li').forEach((li) => {
+    const link = li.querySelector('a');
+    if (!link || link.textContent.trim()) return;
+    const labels = [...li.children].filter((c) => !c.contains(link) && c.textContent.trim());
+    if (!labels.length) return;
+    link.append(labels.map((c) => c.textContent.trim()).join(' '));
+    labels.forEach((c) => c.remove());
+  });
+}
+
 function iconImg(base, name, alt = '') {
   const img = document.createElement('img');
   img.src = new URL(`images/nav/${name}.svg`, base).href;
@@ -176,6 +192,7 @@ export default async function decorate(block) {
   utility.className = 'nav-utility';
   if (utilSection) {
     const lists = [...utilSection.querySelectorAll(':scope > ul')];
+    lists.forEach(mergeIconLinkLabels);
     if (lists[0]) lists[0].className = 'nav-utility-left';
     if (lists[1]) lists[1].className = 'nav-utility-right';
     utility.append(...lists);
@@ -236,7 +253,10 @@ export default async function decorate(block) {
   const search = buildSearch(placeholder ? placeholder.textContent.trim() : 'Search', base);
 
   const tools = toolsSection && toolsSection.querySelector(':scope > ul');
-  if (tools) tools.className = 'nav-tools';
+  if (tools) {
+    mergeIconLinkLabels(tools);
+    tools.className = 'nav-tools';
+  }
 
   main.append(burger, brand, sections, search);
   if (tools) main.append(tools);

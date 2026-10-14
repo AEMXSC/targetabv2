@@ -32,8 +32,12 @@ export default function decorate(block) {
   });
 
   ul.querySelectorAll('picture > img').forEach((img) => {
+    // the label right next to the image already names the item; repeating it is noise
+    const label = img.closest('li').querySelector('.cards-circle-label');
+    const same = (a, b) => a.trim().toLowerCase() === b.trim().toLowerCase();
+    const alt = label && same(img.alt, label.textContent) ? '' : img.alt;
     img.closest('picture').replaceWith(
-      createOptimizedPicture(img.src, img.alt, false, [{ width: '300' }]),
+      createOptimizedPicture(img.src, alt, false, [{ width: '300' }]),
     );
   });
 

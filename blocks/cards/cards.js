@@ -1,6 +1,17 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import { createOptimizedPicture, loadCSS } from '../../scripts/aem.js';
 
-export default function decorate(block) {
+// variants live in ./variants/<name>.{js,css}; authored as e.g. "Cards (deals)"
+const VARIANTS = ['deals', 'circle', 'story', 'promo'];
+
+export default async function decorate(block) {
+  const variant = VARIANTS.find((v) => block.classList.contains(v));
+  if (variant) {
+    await loadCSS(`${window.hlx.codeBasePath}/blocks/cards/variants/${variant}.css`);
+    const { default: decorateVariant } = await import(`./variants/${variant}.js`);
+    await decorateVariant(block);
+    return;
+  }
+
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {

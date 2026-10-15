@@ -1,0 +1,99 @@
+/* Tabs Product: values from live target.com probes (migration-work/design/probe2-*.json) */
+.tabs.product {
+  max-width: 1200px;
+  margin: 0 auto;
+  color: inherit;
+  text-align: center;
+}
+
+/* tab bar: centered when tabs fit, start-aligned + horizontally scrollable when they overflow */
+.tabs.product .tabs-product-list {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+  overflow-x: auto;
+  border-bottom: 1px solid #888;
+  scrollbar-width: none;
+}
+
+/* auto-margin spacers center the tabs without clipping the first tab on overflow */
+.tabs.product .tabs-product-list::before,
+.tabs.product .tabs-product-list::after {
+  content: '';
+  margin: auto;
+}
+
+.tabs.product .tabs-product-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* tabs inherit section background + text color (white on dark sections) */
+.tabs.product .tabs-product-list .tabs-product-tab {
+  flex: 0 0 auto;
+  display: block;
+  max-width: none;
+  margin: 0.5px 8px 0;
+  padding: 8px 16px;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25.2px;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tabs.product .tabs-product-list .tabs-product-tab:hover,
+.tabs.product .tabs-product-list .tabs-product-tab:focus {
+  background: none;
+}
+
+.tabs.product .tabs-product-list .tabs-product-tab[aria-selected='true'] {
+  border-bottom-color: currentcolor;
+  font-weight: 700;
+  cursor: default;
+}
+
+.tabs.product .tabs-product-list .tabs-product-tab:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: -2px;
+}
+
+/* panels: source holds dynamic product carousels; ours a single "Shop <label>" link */
+.tabs.product .tabs-product-panel {
+  padding: 16px 0 8px;
+}
+
+.tabs.product .tabs-product-panel[aria-hidden='true'] {
+  display: none;
+}
+
+.tabs.product .tabs-product-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tabs.product .tabs-product-content p {
+  margin: 0;
+}
+
+main .tabs.product a.tabs-product-link:any-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.6px;
+  text-decoration: underline;
+  white-space: normal;
+}

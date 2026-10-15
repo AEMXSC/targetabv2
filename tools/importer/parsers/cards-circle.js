@@ -100,6 +100,6 @@ export default function parse(element, { document, html }) {
     return;
   }
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'cards-circle', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Cards (circle)', cells });
   element.replaceWith(block);
 }

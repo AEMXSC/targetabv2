@@ -108,7 +108,7 @@ export default function parse(element, { document }) {
   }
   cells.push([content]);
 
-  const name = isCopyLeftAligned(element, heading) ? 'hero-promo (left)' : 'hero-promo';
+  const name = isCopyLeftAligned(element, heading) ? 'Hero (promo, left)' : 'Hero (promo)';
   const block = WebImporter.Blocks.createBlock(document, { name, cells });
   element.replaceWith(block);
 }

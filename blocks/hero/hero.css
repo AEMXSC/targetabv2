@@ -1,22 +1,23 @@
-.hero-container .hero-wrapper {
+/* base hero; variants are styled in ./variants/*.css */
+.hero-container .hero-wrapper:has(> .hero:not(.banner, .promo)) {
   max-width: unset;
   padding: 0;
 }
 
-.hero {
+.hero:not(.banner, .promo) {
   position: relative;
   padding: 40px 24px;
   min-height: 300px;
 }
 
-.hero h1 {
+.hero:not(.banner, .promo) h1 {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   color: var(--background-color);
 }
 
-.hero picture {
+.hero:not(.banner, .promo) picture {
   position: absolute;
   z-index: -1;
   inset: 0;
@@ -24,14 +25,14 @@
   box-sizing: border-box;
 }
 
-.hero img {
+.hero:not(.banner, .promo) img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
 @media (width >= 900px) {
-  .hero {
+  .hero:not(.banner, .promo) {
     padding: 40px 32px;
   }
 }

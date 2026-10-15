@@ -63,7 +63,7 @@ export async function applyTargetHeroMboxIfConfigured() {
   if (!mbox) return;
 
   const selectorList = (getMetadata('target-mbox-hero-selector')?.trim()
-    || '.hero-promo, .hero.block .hero-inner')
+    || '.hero.promo, .hero.block .hero-inner')
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean);

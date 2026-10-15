@@ -1,7 +1,18 @@
 // eslint-disable-next-line import/no-unresolved
-import { toClassName } from '../../scripts/aem.js';
+import { loadCSS, toClassName } from '../../scripts/aem.js';
+
+// variants live in ./variants/<name>.{js,css}; authored as e.g. "Tabs (product)"
+const VARIANTS = ['product'];
 
 export default async function decorate(block) {
+  const variant = VARIANTS.find((v) => block.classList.contains(v));
+  if (variant) {
+    await loadCSS(`${window.hlx.codeBasePath}/blocks/tabs/variants/${variant}.css`);
+    const { default: decorateVariant } = await import(`./variants/${variant}.js`);
+    await decorateVariant(block);
+    return;
+  }
+
   // build tablist
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';

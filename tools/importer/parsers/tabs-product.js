@@ -60,6 +60,6 @@ export default function parse(element, { document }) {
     cells.push([labelCell, p]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'tabs-product', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Tabs (product)', cells });
   element.replaceWith(block);
 }

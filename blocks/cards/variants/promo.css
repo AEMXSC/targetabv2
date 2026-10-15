@@ -1,0 +1,115 @@
+/* cards-promo — campaign cards: square image on top, colored copy panel with linked title + description.
+   Values from target.com computed styles (multistory 3-up / mobileLayout cards) and pixel
+   measurement of the import-day screenshot. See migration-work/cards-promo-extracted.css. */
+
+.cards.promo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+.cards.promo .cards-promo-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: rgb(214 214 214) 0 0 0 1px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* per-card panel colors (source applies these per campaign; authored content carries none) */
+.cards.promo .cards-promo-card:nth-child(3n + 1) {
+  background-color: rgb(173 25 25);
+  color: #fff;
+}
+
+.cards.promo .cards-promo-card:nth-child(3n + 2) {
+  background-color: rgb(245 240 225);
+  color: var(--text-color);
+}
+
+.cards.promo .cards-promo-card:nth-child(3n + 3) {
+  background-color: rgb(24 76 38);
+  color: #fff;
+}
+
+.cards.promo .cards-promo-card-image {
+  line-height: 0;
+}
+
+.cards.promo .cards-promo-card-image picture {
+  display: block;
+}
+
+.cards.promo .cards-promo-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.cards.promo .cards-promo-card-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 133px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.cards.promo .cards-promo-card-body > * {
+  margin: 0;
+}
+
+.cards.promo .cards-promo-card-body h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 22.8px;
+  color: inherit;
+}
+
+.cards.promo .cards-promo-card-body h3 a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards.promo .cards-promo-card-body p {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  color: inherit;
+}
+
+/* whole-card link (stretched link) */
+.cards.promo .cards-promo-linked .cards-promo-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+@media (width >= 600px) {
+  .cards.promo > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 900px) {
+  /* source content area is inset 40px each side (container margin 24px + padding 16px) */
+  main > .section > .cards-wrapper:has(> .cards.promo) {
+    padding: 0 40px;
+  }
+
+  .cards.promo > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
